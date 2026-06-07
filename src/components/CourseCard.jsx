@@ -1,11 +1,15 @@
+import { Link } from "react-router-dom";
+
 function CourseCard({
+  id,
   title,
   level,
   price,
   image,
 }) {
   return (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition duration-300">
+    <Link to={`/course/${id}`}>
+     <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition duration-300">
 
       <img
         src={image}
@@ -54,6 +58,7 @@ function CourseCard({
       </div>
 
     </div>
+    </Link>
   );
 }
 

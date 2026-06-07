@@ -28,7 +28,7 @@ function Home() {
 
             <div>
 
-              <h1 className="text-6xl font-bold text-[#1A2B3C]">
+             <h1 className="text-6xl font-bold text-[#1A2B3C]">
                 Learn Smarter.
               </h1>
 
@@ -36,7 +36,7 @@ function Home() {
                 Grow Faster.
               </h1>
 
-              <p className="mt-4 text-xl text-gray-700 max-w-xl">
+              <p className="mt-4 text-xl text-gray-700">
                 AI-Powered E-Learning Platform for Personalized Learning,
                 Smart Recommendations and Real Career Growth.
               </p>
@@ -151,8 +151,8 @@ function Home() {
 
             <div className="flex justify-between items-center mb-10">
 
-                <h2 className="text-5xl font-bold text-[#1A2B3C]">
-                Featured Courses
+                <h2 className="text-6xl font-bold text-[#1A2B3C]">
+                  Featured Courses
                 </h2>
 
                 <button className="text-[#0F5C5C] font-semibold hover:underline">
@@ -164,6 +164,7 @@ function Home() {
             <div className="grid md:grid-cols-3 gap-8">
 
                 <CourseCard
+                id="1"
                 image={webImage}
                 title="Web Development"
                 level="Beginner"
@@ -172,6 +173,7 @@ function Home() {
                 />
 
                 <CourseCard
+                id="2"
                 image={pythonImage}
                 title="Python for Data Science"
                 level="Intermediate"
@@ -180,6 +182,7 @@ function Home() {
                 />
 
                 <CourseCard
+                id="3"
                 image={mlImage}
                 title="Machine Learning A-Z"
                 level="Advanced"
@@ -255,8 +258,8 @@ function Home() {
 
         <div className="mt-20">
 
-            <h2 className="text-5xl font-bold mb-10 text-center">
-                Popular Categories
+           <h2 className="text-6xl font-bold text-black">
+              Popular Categories
             </h2>
 
             <div className="grid md:grid-cols-4 gap-6">
@@ -297,8 +300,8 @@ function Home() {
 
         <div className="mt-20">
 
-            <h2 className="text-5xl font-bold mb-10 text-center">
-                What Our Students Say
+            <h2 className="text-6xl font-bold text-black">
+              What Our Students Say
             </h2>
 
             <div className="grid md:grid-cols-3 gap-8">
@@ -363,8 +366,8 @@ function Home() {
 
         <div className="mt-20">
 
-            <h2 className="text-5xl font-bold mb-10 text-center">
-                Meet Our Top Instructors
+            <h2 className="text-6xl font-bold text-black">
+              Meet Our Top Instructors
             </h2>
 
             <div className="grid md:grid-cols-3 gap-8">

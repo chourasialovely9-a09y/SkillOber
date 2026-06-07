@@ -130,6 +130,40 @@ function StudentDashboard() {
 
         </div>
 
+        {/* Continue Learning */}
+
+          <div className="mt-16">
+
+            <h2 className="text-3xl font-bold mb-6">
+              Continue Learning
+            </h2>
+
+            <div className="bg-white rounded-2xl shadow-lg p-6">
+
+              <div className="flex justify-between items-center">
+
+                <div>
+
+                  <h3 className="text-2xl font-bold">
+                    React Development
+                  </h3>
+
+                  <p className="text-gray-500">
+                    75% Completed
+                  </p>
+
+                </div>
+
+                <button className="bg-[#0F5C5C] text-white px-6 py-3 rounded-xl hover:bg-[#0c4a4a]">
+                  Continue
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
         {/* Recent Activity */}
 
         <div className="mt-16">
@@ -159,7 +193,31 @@ function StudentDashboard() {
           </div>
 
         </div>
+        {/* Upcoming Classes */}
 
+        <div className="mt-16">
+
+          <h2 className="text-3xl font-bold mb-6">
+            Upcoming Classes
+          </h2>
+
+          <div className="bg-white rounded-2xl shadow-lg p-6">
+
+            <div className="border-b py-3">
+              📅 React Advanced Concepts - Tomorrow 6:00 PM
+            </div>
+
+            <div className="border-b py-3">
+              📅 Python Data Analysis - Friday 7:00 PM
+            </div>
+
+            <div className="py-3">
+              📅 Machine Learning Basics - Sunday 5:00 PM
+            </div>
+
+          </div>
+
+        </div>
         {/* AI Recommendations */}
 
         <div className="mt-16 bg-[#0F5C5C] text-white p-8 rounded-3xl">
@@ -179,6 +237,55 @@ function StudentDashboard() {
           </ul>
 
         </div>
+        {/* Achievements */}
+
+        <div className="mt-16">
+
+          <h2 className="text-3xl font-bold mb-6">
+            Achievements
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-6">
+
+            <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
+
+              <h3 className="text-5xl">
+                🏆
+              </h3>
+
+              <p className="mt-4 font-bold">
+                First Course Completed
+              </p>
+
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
+
+              <h3 className="text-5xl">
+                ⭐
+              </h3>
+
+              <p className="mt-4 font-bold">
+                Top Learner
+              </p>
+
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
+
+              <h3 className="text-5xl">
+                🎯
+              </h3>
+
+              <p className="mt-4 font-bold">
+                7-Day Learning Streak
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
 
         {/* Recommended Courses */}
 
@@ -191,19 +298,25 @@ function StudentDashboard() {
           <div className="grid md:grid-cols-3 gap-6">
 
             <CourseCard
+              id ="1"
               title="Advanced React"
+               image={web}
               level="Intermediate"
               price="1499"
             />
 
             <CourseCard
+            id="2"
               title="Machine Learning"
+               image={ml}
               level="Advanced"
               price="1999"
             />
 
             <CourseCard
+            id="3"
               title="Python Analytics"
+               image={python}
               level="Intermediate"
               price="1299"
             />
