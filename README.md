@@ -66,27 +66,53 @@ through a clean and responsive interface.
 ## Project Structure
 
 ```bash
-src/
+elearning-frontend/
 │
-├── assets/
-├── components/
-│   ├── Navbar.jsx
-│   ├── Footer.jsx
-│   └── CourseCard.jsx
+├── public/
+│   ├── favicon.svg
+│   └── icons.svg
 │
-├── pages/
-│   ├── Home.jsx
-│   ├── Courses.jsx
-│   ├── CourseDetails.jsx
-│   ├── Login.jsx
-│   ├── Register.jsx
-│   ├── About.jsx
-│   ├── Contact.jsx
-│   ├── StudentDashboard.jsx
-│   └── InstructorDashboard.jsx
+├── src/
+│   ├── assets/
+│   │   ├── hero.png
+│   │   ├── web.png
+│   │   ├── python.png
+│   │   └── ml.png
+│   │
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   ├── Footer.jsx
+│   │   └── CourseCard.jsx
+│   │
+│   ├── context/
+│   │   └── AuthContext.jsx
+│   │
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── Courses.jsx
+│   │   ├── CourseDetails.jsx
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   ├── About.jsx
+│   │   ├── Contact.jsx
+│   │   ├── StudentDashboard.jsx
+│   │   ├── InstructorDashboard.jsx
+│   │   └── AdminDashboard.jsx
+│   │
+│   ├── services/
+│   │   └── api.js
+│   │
+│   ├── App.jsx
+│   ├── App.css
+│   ├── index.css
+│   └── main.jsx
 │
-└── App.jsx
-```
+├── README.md
+├── package.json
+├── package-lock.json
+├── requirements.txt
+├── vite.config.js
+└── index.html
 
 ---
 
