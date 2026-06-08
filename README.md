@@ -46,26 +46,6 @@ through a clean and responsive interface.
 
 ---
 
-## Screenshots
-
-### Home Page
-
-(Add Screenshot)
-
-### Courses Page
-
-(Add Screenshot)
-
-### Student Dashboard
-
-(Add Screenshot)
-
-### Instructor Dashboard
-
-(Add Screenshot)
-
----
-
 ## Tech Stack
 
 ### Frontend
