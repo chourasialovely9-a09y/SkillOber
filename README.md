@@ -1,16 +1,69 @@
-# React + Vite
+SkillOber – AI-Powered E-Learning Platform
+Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SkillOber is a modern AI-powered E-Learning Platform built using React.js and Tailwind CSS. The platform helps students discover courses, track learning progress, explore learning paths, and interact with instructors through a clean and responsive interface.
 
-Currently, two official plugins are available:
+Features
+Student Features
+Browse available courses
+Course Details Page
+Search Courses
+Student Dashboard
+Progress Tracking
+Learning Statistics
+Instructor Features
+Instructor Dashboard
+Course Management Interface
+Revenue Analytics
+Student Enrollment Tracking
+Course Performance Monitoring
+Platform Features
+Responsive Design
+Modern UI/UX
+React Router Navigation
+Reusable Components
+Authentication Pages
+About & Contact Pages
+Screenshots
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Add screenshots here:
 
-## React Compiler
+Home Page
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Courses Page
 
-## Expanding the ESLint configuration
+Student Dashboard
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Instructor Dashboard
+
+Tech Stack
+Frontend
+React.js
+Vite
+Tailwind CSS
+React Router DOM
+Development Tools
+Git
+GitHub
+VS Code
+Project Structure
+src/
+│
+├── assets/
+├── components/
+│   ├── Navbar.jsx
+│   ├── Footer.jsx
+│   └── CourseCard.jsx
+│
+├── pages/
+│   ├── Home.jsx
+│   ├── Courses.jsx
+│   ├── CourseDetails.jsx
+│   ├── Login.jsx
+│   ├── Register.jsx
+│   ├── About.jsx
+│   ├── Contact.jsx
+│   ├── StudentDashboard.jsx
+│   └── InstructorDashboard.jsx
+│
+└── App.jsx
