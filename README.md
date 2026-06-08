@@ -2,16 +2,9 @@
 
 ## Overview
 
-SkillOber is a modern AI-powered E-Learning Platform built using React.js and Tailwind CSS.
+SkillOber is a modern AI-powered E-Learning Platform built using React.js, Vite, and Tailwind CSS.
 
-The platform helps students:
-
-* Discover courses
-* Track learning progress
-* Explore learning paths
-* Interact with instructors
-
-through a clean and responsive interface.
+The platform helps students discover courses, track learning progress, explore learning paths, and interact with instructors through a clean, responsive, and user-friendly interface.
 
 ---
 
@@ -20,8 +13,8 @@ through a clean and responsive interface.
 ### Student Features
 
 * Browse available courses
-* Course Details Page
-* Search Courses
+* View detailed course information
+* Search courses
 * Student Dashboard
 * Progress Tracking
 * Learning Statistics
@@ -113,15 +106,33 @@ elearning-frontend/
 ├── requirements.txt
 ├── vite.config.js
 └── index.html
+```
 
 ---
 
 ## Installation
 
+Clone the repository:
+
 ```bash
 git clone https://github.com/chourasialovely9-a09y/SkillOber.git
-cd SkillOber
+```
+
+Navigate to the project folder:
+
+```bash
+cd elearning-frontend
+```
+
+Install dependencies:
+
+```bash
 npm install
+```
+
+Start the development server:
+
+```bash
 npm run dev
 ```
 
@@ -140,8 +151,10 @@ npm run dev
 * Contact Page
 * Student Dashboard
 * Instructor Dashboard
+* Admin Dashboard
 * Search Functionality
 * Responsive Design
+* GitHub Integration
 
 ### Upcoming
 
@@ -149,13 +162,24 @@ npm run dev
 * MongoDB Database
 * JWT Authentication
 * AI Recommendation System
-* Payment Gateway
+* Payment Gateway Integration
 * Certificate Generation
+* Live Classes Module
 
 ---
 
 ## Author
 
 **Lovely Chourasia**
+
 Aarivya Labs Internship Program
+
 SkillOber Project
+
+---
+
+## Repository
+
+GitHub Repository:
+
+https://github.com/chourasialovely9-a09y/SkillOber
