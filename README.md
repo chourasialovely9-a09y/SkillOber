@@ -1,52 +1,91 @@
-SkillOber – AI-Powered E-Learning Platform
-Overview
+# SkillOber – AI-Powered E-Learning Platform
 
-SkillOber is a modern AI-powered E-Learning Platform built using React.js and Tailwind CSS. The platform helps students discover courses, track learning progress, explore learning paths, and interact with instructors through a clean and responsive interface.
+## Overview
 
-Features
-Student Features
-Browse available courses
-Course Details Page
-Search Courses
-Student Dashboard
-Progress Tracking
-Learning Statistics
-Instructor Features
-Instructor Dashboard
-Course Management Interface
-Revenue Analytics
-Student Enrollment Tracking
-Course Performance Monitoring
-Platform Features
-Responsive Design
-Modern UI/UX
-React Router Navigation
-Reusable Components
-Authentication Pages
-About & Contact Pages
-Screenshots
+SkillOber is a modern AI-powered E-Learning Platform built using React.js and Tailwind CSS.
 
-Add screenshots here:
+The platform helps students:
 
-Home Page
+* Discover courses
+* Track learning progress
+* Explore learning paths
+* Interact with instructors
 
-Courses Page
+through a clean and responsive interface.
 
-Student Dashboard
+---
 
-Instructor Dashboard
+## Features
 
-Tech Stack
-Frontend
-React.js
-Vite
-Tailwind CSS
-React Router DOM
-Development Tools
-Git
-GitHub
-VS Code
-Project Structure
+### Student Features
+
+* Browse available courses
+* Course Details Page
+* Search Courses
+* Student Dashboard
+* Progress Tracking
+* Learning Statistics
+
+### Instructor Features
+
+* Instructor Dashboard
+* Course Management Interface
+* Revenue Analytics
+* Student Enrollment Tracking
+* Course Performance Monitoring
+
+### Platform Features
+
+* Responsive Design
+* Modern UI/UX
+* React Router Navigation
+* Reusable Components
+* Authentication Pages
+* About Page
+* Contact Page
+
+---
+
+## Screenshots
+
+### Home Page
+
+(Add Screenshot)
+
+### Courses Page
+
+(Add Screenshot)
+
+### Student Dashboard
+
+(Add Screenshot)
+
+### Instructor Dashboard
+
+(Add Screenshot)
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* React.js
+* Vite
+* Tailwind CSS
+* React Router DOM
+
+### Development Tools
+
+* Git
+* GitHub
+* VS Code
+
+---
+
+## Project Structure
+
+```bash
 src/
 │
 ├── assets/
@@ -67,3 +106,50 @@ src/
 │   └── InstructorDashboard.jsx
 │
 └── App.jsx
+```
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/chourasialovely9-a09y/SkillOber.git
+cd SkillOber
+npm install
+npm run dev
+```
+
+---
+
+## Current Progress
+
+### Completed
+
+* Home Page
+* Courses Page
+* Course Details Page
+* Login Page
+* Register Page
+* About Page
+* Contact Page
+* Student Dashboard
+* Instructor Dashboard
+* Search Functionality
+* Responsive Design
+
+### Upcoming
+
+* Backend Integration
+* MongoDB Database
+* JWT Authentication
+* AI Recommendation System
+* Payment Gateway
+* Certificate Generation
+
+---
+
+## Author
+
+**Lovely Chourasia**
+Aarivya Labs Internship Program
+SkillOber Project
