@@ -1,4 +1,6 @@
 const express = require("express");
+const { protect } = require("../middlewares/authMiddleware");
+const { authorize } = require("../middlewares/roleMiddleware");
 
 const {
   createCourse,
@@ -10,9 +12,28 @@ const {
 
 const router = express.Router();
 
-router.post("/", createCourse);
 router.get("/", getCourses);
 router.get("/:id", getCourseById);
-router.put("/:id", updateCourse);
-router.delete("/:id", deleteCourse);
+
+router.post(
+  "/",
+  protect,
+  authorize("admin", "instructor"),
+  createCourse
+);
+
+router.put(
+  "/:id",
+  protect,
+  authorize("admin", "instructor"),
+  updateCourse
+);
+
+router.delete(
+  "/:id",
+  protect,
+  authorize("admin"),
+  deleteCourse
+);
+
 module.exports = router;
