@@ -2,9 +2,9 @@
 
 ## Overview
 
-SkillOber is a modern AI-powered E-Learning Platform built using React.js, Vite, and Tailwind CSS.
+SkillOber is a full-stack AI-powered E-Learning Platform built using the MERN Stack. The platform helps students discover courses, track learning progress, manage enrollments, and interact with instructors through a secure and user-friendly learning environment.
 
-The platform helps students discover courses, track learning progress, explore learning paths, and interact with instructors through a clean, responsive, and user-friendly interface.
+The project includes a React frontend, Node.js/Express backend, MongoDB Atlas database, JWT authentication, role-based authorization, course management, enrollment tracking, progress monitoring, and dashboard analytics.
 
 ---
 
@@ -13,29 +13,66 @@ The platform helps students discover courses, track learning progress, explore l
 ### Student Features
 
 * Browse available courses
-* View detailed course information
+* View course details
 * Search courses
 * Student Dashboard
-* Progress Tracking
-* Learning Statistics
+* Track learning progress
+* View enrolled courses
+* Monitor completion statistics
 
 ### Instructor Features
 
 * Instructor Dashboard
-* Course Management Interface
-* Revenue Analytics
+* Course Management
 * Student Enrollment Tracking
 * Course Performance Monitoring
 
-### Platform Features
+### Admin Features
 
-* Responsive Design
-* Modern UI/UX
-* React Router Navigation
-* Reusable Components
-* Authentication Pages
-* About Page
-* Contact Page
+* Admin Dashboard
+* Platform Analytics
+* User Management
+* Course Management
+
+---
+
+## Backend Features
+
+### Authentication & Authorization
+
+* User Registration
+* User Login
+* JWT Authentication
+* Password Hashing using bcryptjs
+* Protected Routes
+* Role-Based Authorization (Admin, Instructor, Student)
+
+### Course Management
+
+* Create Course
+* Get All Courses
+* Get Course By ID
+* Update Course
+* Delete Course
+
+### Enrollment Management
+
+* Student Enrollment
+* Enrollment Retrieval
+* MongoDB Relationship Mapping
+
+### Progress Tracking
+
+* Learning Progress Monitoring
+* Completion Percentage Tracking
+* Progress Analytics
+
+### Dashboard Analytics
+
+* Admin Dashboard Statistics
+* Student Dashboard Analytics
+* Enrollment Statistics
+* Course Statistics
 
 ---
 
@@ -48,93 +85,126 @@ The platform helps students discover courses, track learning progress, explore l
 * Tailwind CSS
 * React Router DOM
 
+### Backend
+
+* Node.js
+* Express.js
+* MongoDB Atlas
+* Mongoose
+* JWT Authentication
+* bcryptjs
+* dotenv
+* CORS
+
 ### Development Tools
 
 * Git
 * GitHub
 * VS Code
+* Postman
 
 ---
 
 ## Project Structure
 
-```bash
-elearning-frontend/
+```text
+SkillOber/
 │
-├── public/
-│   ├── favicon.svg
-│   └── icons.svg
+├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── middlewares/
+│   ├── models/
+│   ├── routes/
+│   ├── package.json
+│   └── server.js
 │
-├── src/
-│   ├── assets/
-│   │   ├── hero.png
-│   │   ├── web.png
-│   │   ├── python.png
-│   │   └── ml.png
+├── elearning-frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   └── App.jsx
 │   │
-│   ├── components/
-│   │   ├── Navbar.jsx
-│   │   ├── Footer.jsx
-│   │   └── CourseCard.jsx
-│   │
-│   ├── context/
-│   │   └── AuthContext.jsx
-│   │
-│   ├── pages/
-│   │   ├── Home.jsx
-│   │   ├── Courses.jsx
-│   │   ├── CourseDetails.jsx
-│   │   ├── Login.jsx
-│   │   ├── Register.jsx
-│   │   ├── About.jsx
-│   │   ├── Contact.jsx
-│   │   ├── StudentDashboard.jsx
-│   │   ├── InstructorDashboard.jsx
-│   │   └── AdminDashboard.jsx
-│   │
-│   ├── services/
-│   │   └── api.js
-│   │
-│   ├── App.jsx
-│   ├── App.css
-│   ├── index.css
-│   └── main.jsx
+│   ├── package.json
+│   └── vite.config.js
 │
 ├── README.md
-├── package.json
-├── package-lock.json
-├── requirements.txt
-├── vite.config.js
-└── index.html
+└── .gitignore
 ```
 
 ---
 
 ## Installation
 
-Clone the repository:
+### Clone Repository
 
 ```bash
 git clone https://github.com/chourasialovely9-a09y/SkillOber.git
 ```
 
-Navigate to the project folder:
+### Backend Setup
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+### Frontend Setup
 
 ```bash
 cd elearning-frontend
-```
-
-Install dependencies:
-
-```bash
 npm install
-```
-
-Start the development server:
-
-```bash
 npm run dev
 ```
+
+---
+
+## Environment Variables
+
+Create a `.env` file inside the backend folder:
+
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+PORT=5000
+```
+
+---
+
+## API Modules
+
+### Authentication
+
+* POST /api/auth/register
+* POST /api/auth/login
+
+### Courses
+
+* POST /api/courses
+* GET /api/courses
+* GET /api/courses/:id
+* PUT /api/courses/:id
+* DELETE /api/courses/:id
+
+### Enrollments
+
+* POST /api/enrollments
+* GET /api/enrollments
+
+### Progress
+
+* POST /api/progress
+* GET /api/progress
+
+### Dashboard
+
+* GET /api/dashboard
+* GET /api/dashboard/student/:studentId
 
 ---
 
@@ -142,25 +212,20 @@ npm run dev
 
 ### Completed
 
-* Home Page
-* Courses Page
-* Course Details Page
-* Login Page
-* Register Page
-* About Page
-* Contact Page
-* Student Dashboard
-* Instructor Dashboard
-* Admin Dashboard
-* Search Functionality
-* Responsive Design
-* GitHub Integration
+* Frontend Development
+* Backend Development
+* MongoDB Atlas Integration
+* JWT Authentication
+* Role-Based Authorization
+* Course Management APIs
+* Enrollment APIs
+* Progress Tracking APIs
+* Dashboard Analytics APIs
+* Protected Routes
 
 ### Upcoming
 
-* Backend Integration
-* MongoDB Database
-* JWT Authentication
+* Frontend-Backend Integration
 * AI Recommendation System
 * Payment Gateway Integration
 * Certificate Generation
@@ -176,10 +241,5 @@ Aarivya Labs Internship Program
 
 SkillOber Project
 
----
-
-## Repository
-
 GitHub Repository:
-
 https://github.com/chourasialovely9-a09y/SkillOber
