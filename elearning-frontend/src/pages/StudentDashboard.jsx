@@ -3,6 +3,7 @@ import web from "../assets/web.png";
 import python from "../assets/python.png";
 import ml from "../assets/ml.png";
 import CourseCard from "../components/CourseCard";
+import { Link } from "react-router-dom";
 
 function StudentDashboard() {
   return (
@@ -27,6 +28,22 @@ function StudentDashboard() {
             Track your progress, discover new courses,
             and accelerate your learning journey.
           </p>
+
+        <div className="mt-6 flex gap-4">
+          <Link
+            to="/analytics"
+            className="bg-[#0F5C5C] text-white px-6 py-3 rounded-xl hover:bg-[#0c4a4a]"
+          >
+            View Analytics
+          </Link>
+
+          <Link
+            to="/courses"
+            className="border border-[#0F5C5C] text-[#0F5C5C] px-6 py-3 rounded-xl hover:bg-[#0F5C5C] hover:text-white"
+          >
+            Browse Courses
+          </Link>
+        </div>
 
         </div>
         <div className="mt-16">

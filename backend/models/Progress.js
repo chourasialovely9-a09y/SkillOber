@@ -28,8 +28,50 @@ const progressSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+
+    quizzes: [
+      {
+        quizId: {
+          type: String,
+        },
+
+        score: {
+          type: Number,
+          default: 0,
+        },
+
+        attemptedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+
+    certificateIssued: {
+      type: Boolean,
+      default: false,
+    },
+
+    milestones: [
+      {
+        title: {
+          type: String,
+        },
+
+        achieved: {
+          type: Boolean,
+          default: false,
+        },
+
+        achievedAt: {
+          type: Date,
+        },
+      },
+    ],
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 module.exports = mongoose.model("Progress", progressSchema);

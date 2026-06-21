@@ -9,6 +9,7 @@ import StudentDashboard from "./pages/StudentDashboard";
 import InstructorDashboard from "./pages/InstructorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import CourseDetails from "./pages/CourseDetails";
+import StudentAnalytics from "./pages/StudentAnalytics";
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +25,8 @@ function App() {
 
         <Route path="/student" element={<StudentDashboard />} />
 
+        <Route path="/analytics" element={<StudentAnalytics />} />
+
         <Route path="/instructor" element={<InstructorDashboard />} />
 
         <Route path="/admin" element={<AdminDashboard />} />
@@ -33,7 +36,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
 
         <Route path="/course/:id"  element={<CourseDetails />} />
-      
+        
       </Routes>
     </BrowserRouter>
   );
