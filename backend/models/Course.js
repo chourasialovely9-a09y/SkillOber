@@ -31,6 +31,33 @@ const courseSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+
+    // Difficulty level
+    level: {
+      type: String,
+      enum: ["Beginner", "Intermediate", "Advanced"],
+      default: "Beginner",
+    },
+
+    // Keywords used for recommendation
+    tags: {
+      type: [String],
+      default: [],
+    },
+
+    // Average course rating
+    rating: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 5,
+    },
+
+    // Number of students enrolled
+    enrolledStudents: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

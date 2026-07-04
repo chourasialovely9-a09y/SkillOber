@@ -1,0 +1,20 @@
+const express = require("express");
+
+const {
+  createNotification,
+  getNotifications,
+  markAsRead,
+  deleteNotification,
+} = require("../controllers/notificationController");
+
+const router = express.Router();
+
+router.post("/", createNotification);
+
+router.get("/:userId", getNotifications);
+
+router.put("/:id", markAsRead);
+
+router.delete("/:id", deleteNotification);
+
+module.exports = router;

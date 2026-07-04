@@ -23,6 +23,12 @@ const userSchema = new mongoose.Schema(
       enum: ["student", "instructor", "admin"],
       default: "student",
     },
+
+    // User interests for AI recommendations
+    interests: {
+      type: [String],
+      default: [],
+    },
   },
   {
     timestamps: true,
