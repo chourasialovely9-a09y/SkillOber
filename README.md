@@ -4,7 +4,7 @@
 
 SkillOber is a full-stack AI-powered E-Learning Platform built to provide an interactive and personalized learning experience for students while offering efficient course management tools for instructors and administrators.
 
-The platform enables users to browse courses, enroll in learning programs, track progress, monitor learning analytics, earn milestones, and visualize learning performance through a modern and responsive interface.
+The platform enables users to browse courses, receive AI-powered course recommendations, enroll in learning programs, track learning progress, participate in quizzes, submit assignments, join virtual classrooms, engage in discussion forums, receive notifications, and collaborate through real-time chat using a modern and responsive interface.
 
 ---
 
@@ -16,19 +16,26 @@ The platform enables users to browse courses, enroll in learning programs, track
 * JWT Authentication
 * Browse Courses
 * View Course Details
+* AI-Based Course Recommendations
 * Course Enrollment
 * Learning Progress Tracking
 * Learning Analytics Dashboard
 * Performance Visualization
-* Milestone Tracking
-* Certificate Tracking
+* Quiz Participation
+* Assignment Submission
+* Discussion Forum
+* Real-Time Chat
+* Virtual Classroom Access
+* Notifications
 * Student Dashboard
-* Personalized Learning Experience
 
 ### Instructor Features
 
 * Create and Manage Courses
 * Update Course Information
+* Create Quizzes
+* Create Assignments
+* Manage Virtual Classrooms
 * Monitor Student Enrollments
 * Instructor Dashboard
 
@@ -58,6 +65,7 @@ The platform enables users to browse courses, enroll in learning programs, track
 * Node.js
 * Express.js
 * JWT Authentication
+* Socket.IO
 * REST APIs
 
 ### Database
@@ -82,6 +90,7 @@ The platform enables users to browse courses, enroll in learning programs, track
 * Email
 * Password
 * Role (Student / Instructor / Admin)
+* Interests
 
 ### Course
 
@@ -91,6 +100,10 @@ The platform enables users to browse courses, enroll in learning programs, track
 * Category
 * Thumbnail
 * Price
+* Level
+* Tags
+* Rating
+* Enrolled Students
 
 ### Enrollment
 
@@ -114,6 +127,51 @@ The platform enables users to browse courses, enroll in learning programs, track
 * Activity Type
 * Timestamp
 
+### Quiz
+
+* Course Reference
+* Quiz Title
+* Questions
+* Options
+* Correct Answers
+
+### Assignment
+
+* Course Reference
+* Assignment Title
+* Description
+* Due Date
+* Student Submissions
+
+### Notification
+
+* User Reference
+* Title
+* Message
+* Type
+* Read Status
+
+### Discussion
+
+* Course Reference
+* Student Reference
+* Discussion Message
+
+### Chat
+
+* Course Reference
+* Sender
+* Sender Name
+* Message
+
+### Virtual Classroom
+
+* Course Reference
+* Instructor
+* Meeting Link
+* Class Schedule
+* Learning Resources
+
 ---
 
 ## Security Features
@@ -126,13 +184,88 @@ The platform enables users to browse courses, enroll in learning programs, track
 
 ---
 
+## Implemented Modules
+
+### Authentication
+
+* User Registration
+* User Login
+* JWT Authentication
+* User Profile
+* Role-Based Authorization
+
+### Course Management
+
+* Create Course
+* Update Course
+* Delete Course
+* Browse Courses
+* Course Enrollment
+
+### Learning Progress
+
+* Progress Tracking
+* Learning Analytics Dashboard
+* Performance Visualization
+* Activity Tracking
+* Certificate Tracking
+
+### AI Recommendation Engine
+
+* Personalized Course Recommendations
+* User Interest-Based Recommendation Logic
+* Course Filtering
+* Course Ranking
+
+### Quiz Management
+
+* Create Quiz
+* Retrieve Quiz
+* Submit Quiz
+* Automatic Score Calculation
+
+### Assignment Management
+
+* Create Assignment
+* Retrieve Assignments
+* Submit Assignments
+* Delete Assignments
+
+### Discussion Forum
+
+* Create Discussion
+* Retrieve Discussions
+* Delete Discussions
+
+### Notification System
+
+* Create Notifications
+* Retrieve Notifications
+* Mark Notifications as Read
+
+### Real-Time Chat
+
+* Send Messages
+* Retrieve Chat History
+* Socket.IO Integration
+
+### Virtual Classroom
+
+* Create Virtual Classroom
+* Retrieve Virtual Classroom
+* Update Virtual Classroom
+* Delete Virtual Classroom
+* Learning Resource Management
+
+---
+
 ## API Modules
 
 ### Authentication APIs
 
 * Register User
 * Login User
-* JWT Token Generation
+* User Profile
 
 ### Course APIs
 
@@ -152,35 +285,49 @@ The platform enables users to browse courses, enroll in learning programs, track
 * Track Progress
 * Update Progress
 * Learning Analytics
-* Milestone Tracking
-* Certificate Tracking
 
-### Dashboard APIs
+### Recommendation APIs
 
-* Admin Dashboard Analytics
-* Student Dashboard Statistics
+* Personalized Course Recommendation
+* Course Filtering
+* Course Ranking
 
----
+### Quiz APIs
 
-## Week 4 – Student Progress Tracking System
+* Create Quiz
+* Retrieve Quiz
+* Submit Quiz
 
-### Features Implemented
+### Assignment APIs
 
-* Learning Analytics Dashboard
-* Progress Tracking System
-* Activity Tracking
-* Course Completion Tracking
-* Performance Visualization using Recharts
-* Milestone Tracking
-* Certificate Tracking
-* Student Dashboard Integration
+* Create Assignment
+* Retrieve Assignments
+* Submit Assignment
+* Delete Assignment
 
-### Analytics Metrics
+### Discussion APIs
 
-* Total Courses
-* Completed Courses
-* Average Progress
-* Certificates Earned
+* Create Discussion
+* Retrieve Discussions
+* Delete Discussion
+
+### Notification APIs
+
+* Create Notification
+* Retrieve Notifications
+* Mark Notification as Read
+
+### Chat APIs
+
+* Send Chat Messages
+* Retrieve Chat History
+
+### Virtual Classroom APIs
+
+* Create Virtual Classroom
+* Retrieve Virtual Classroom
+* Update Virtual Classroom
+* Delete Virtual Classroom
 
 ---
 
@@ -203,7 +350,7 @@ npm run dev
 ### Frontend Setup
 
 ```bash
-cd elearning-frontend
+cd frontend
 npm install
 npm run dev
 ```
@@ -212,22 +359,24 @@ npm run dev
 
 ## Future Enhancements
 
-* AI Course Recommendation System
-* Personalized Learning Paths
-* Skill Gap Analysis
-* Payment Gateway Integration
-* Live Classes Module
-* Discussion Forums
 * AI Learning Assistant
-* Real-Time Notifications
+* AI Chatbot for Student Support
+* Live Video Conferencing (WebRTC)
+* Certificate Generation
+* Email Notifications
+* Payment Gateway Integration
+* Learning Streaks and Gamification
+* Mobile Application Support
 
 ---
 
 ## Author
 
-Lovely Chourasia
+**Lovely Chourasia**
 
-Aarivya Labs Internship Program
+B.Tech CSE (AI & ML)
+
+KIIT University
 
 GitHub Repository:
 https://github.com/chourasialovely9-a09y/SkillOber
