@@ -6,12 +6,17 @@ const {
   submitQuiz,
 } = require("../controllers/quizController");
 
+const { protect } = require("../middlewares/authMiddleware");
+
 const router = express.Router();
 
-router.post("/", createQuiz);
+// Create Quiz (Instructor/Admin)
+router.post("/", protect, createQuiz);
 
-router.get("/:courseId", getQuizByCourse);
+// Get Quiz for a Course
+router.get("/course/:courseId", protect, getQuizByCourse);
 
-router.post("/submit/:id", submitQuiz);
+// Submit Quiz
+router.post("/:id/submit", protect, submitQuiz);
 
 module.exports = router;

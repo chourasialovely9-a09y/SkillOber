@@ -7,14 +7,17 @@ const {
   getAnalytics,
 } = require("../controllers/progressController");
 
+const { protect } = require("../middlewares/authMiddleware");
+
 const router = express.Router();
 
-router.post("/", createProgress);
+// Protected Routes
+router.post("/", protect, createProgress);
 
-router.get("/", getProgress);
+router.get("/", protect, getProgress);
 
-router.get("/analytics", getAnalytics);
+router.get("/analytics", protect, getAnalytics);
 
-router.put("/:id", updateProgress);
+router.put("/:id", protect, updateProgress);
 
 module.exports = router;

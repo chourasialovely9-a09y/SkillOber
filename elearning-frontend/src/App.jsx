@@ -9,7 +9,10 @@ import StudentDashboard from "./pages/StudentDashboard";
 import InstructorDashboard from "./pages/InstructorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import CourseDetails from "./pages/CourseDetails";
+import QuizPage from "./pages/QuizPage";
 import StudentAnalytics from "./pages/StudentAnalytics";
+import Certificate from "./pages/Certificate";
+import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <BrowserRouter>
@@ -23,20 +26,49 @@ function App() {
 
         <Route path="/courses" element={<Courses />} />
 
-        <Route path="/student" element={<StudentDashboard />} />
+        <Route
+          path="/student"
+          element={
+            <ProtectedRoute allowedRoles={["student"]}>
+              <StudentDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/analytics" element={<StudentAnalytics />} />
+        <Route
+          path="/analytics"
+          element={
+            <ProtectedRoute allowedRoles={["student"]}>
+              <StudentAnalytics />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/instructor" element={<InstructorDashboard />} />
+        <Route
+          path="/instructor"
+          element={
+            <ProtectedRoute allowedRoles={["instructor"]}>
+              <InstructorDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
         
         <Route path="/about" element={<About />} />
         
         <Route path="/contact" element={<Contact />} />
 
         <Route path="/course/:id"  element={<CourseDetails />} />
-        
+        <Route path="/quiz/:courseId" element={<QuizPage />} />
+        <Route path="/certificate" element={<Certificate />} />
       </Routes>
     </BrowserRouter>
   );

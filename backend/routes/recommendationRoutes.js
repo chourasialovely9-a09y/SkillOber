@@ -5,7 +5,9 @@ const {
   getRecommendedCourses,
 } = require("../controllers/recommendationController");
 
-// Get recommended courses for a user
-router.get("/:userId", getRecommendedCourses);
+const { protect } = require("../middlewares/authMiddleware");
+
+// Get recommendations for the logged-in user
+router.get("/", protect, getRecommendedCourses);
 
 module.exports = router;

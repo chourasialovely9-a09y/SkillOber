@@ -2,6 +2,7 @@ const express = require("express");
 
 const {
   createClassroom,
+  getAllClassrooms,
   getClassroom,
   updateClassroom,
   deleteClassroom,
@@ -10,6 +11,8 @@ const {
 const router = express.Router();
 
 router.post("/", createClassroom);
+
+router.get("/", getAllClassrooms);
 
 router.get("/:courseId", getClassroom);
 

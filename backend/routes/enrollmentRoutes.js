@@ -1,4 +1,5 @@
 const express = require("express");
+const { protect } = require("../middlewares/authMiddleware");
 
 const {
   enrollCourse,
@@ -7,7 +8,7 @@ const {
 
 const router = express.Router();
 
-router.post("/", enrollCourse);
-router.get("/", getEnrollments);
+router.post("/", protect, enrollCourse);
+router.get("/", protect, getEnrollments);
 
 module.exports = router;

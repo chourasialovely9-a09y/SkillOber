@@ -3,9 +3,8 @@ import Footer from "../components/Footer";
 import CourseCard from "../components/CourseCard";
 import hero from "../assets/hero.png";
 import { Link } from "react-router-dom";
-import webImage from "../assets/web.png";
-import pythonImage from "../assets/python.png";
-import mlImage from "../assets/ml.png";
+import { useState, useEffect } from "react";
+import API from "../api/api";
 import {
   FaRobot,
   FaChartLine,
@@ -14,6 +13,24 @@ import {
 } from "react-icons/fa";
 
 function Home() {
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+  const fetchCourses = async () => {
+    try {
+      const res = await API.get("/courses");
+
+      // Show only first 3 featured courses
+      setCourses(res.data.slice(0, 3));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchCourses();
+}, []);
   return (
     <>
       <Navbar />
@@ -161,37 +178,29 @@ function Home() {
 
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+           <div className="grid md:grid-cols-3 gap-8">
 
+            {loading ? (
+              <h2 className="text-2xl font-bold">
+                Loading Courses...
+              </h2>
+            ) : (
+              courses.map((course) => (
                 <CourseCard
-                id="1"
-                image={webImage}
-                title="Web Development"
-                level="Beginner"
-                instructor="SkillOber Academy"
-                price="999"
+                  key={course._id}
+                  id={course._id}
+                  title={course.title}
+                  level={course.level}
+                  price={course.price}
+                  instructor={course.instructor}
+                  image={`/images/${course.thumbnail}`}
+                  rating={course.rating}
+                  enrolledStudents={course.enrolledStudents}
                 />
+              ))
+            )}
 
-                <CourseCard
-                id="2"
-                image={pythonImage}
-                title="Python for Data Science"
-                level="Intermediate"
-                instructor="SkillOber Academy"
-                price="1299"
-                />
-
-                <CourseCard
-                id="3"
-                image={mlImage}
-                title="Machine Learning A-Z"
-                level="Advanced"
-                instructor="SkillOber Academy"
-                price="1499"
-                />
-
-            </div>
-
+          </div>
         </div>
           {/* Statistics */}
 

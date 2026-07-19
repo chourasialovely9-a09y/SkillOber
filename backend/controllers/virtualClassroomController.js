@@ -12,7 +12,20 @@ const createClassroom = async (req, res) => {
     });
   }
 };
+// Get All Classrooms
+const getAllClassrooms = async (req, res) => {
+  try {
+    const classrooms = await VirtualClassroom.find()
+      .populate("course", "title")
+      .sort({ createdAt: 1 });
 
+    res.status(200).json(classrooms);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 // Get Classroom by Course
 const getClassroom = async (req, res) => {
   try {
@@ -27,7 +40,6 @@ const getClassroom = async (req, res) => {
     });
   }
 };
-
 // Update Classroom
 const updateClassroom = async (req, res) => {
   try {
@@ -62,6 +74,7 @@ const deleteClassroom = async (req, res) => {
 
 module.exports = {
   createClassroom,
+  getAllClassrooms,
   getClassroom,
   updateClassroom,
   deleteClassroom,

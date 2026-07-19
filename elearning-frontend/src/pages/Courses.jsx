@@ -1,40 +1,29 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CourseCard from "../components/CourseCard";
-import { useState } from "react";
-
-import web from "../assets/web.png";
-import python from "../assets/python.png";
-import ml from "../assets/ml.png";
+import { useEffect, useState } from "react";
+import API from "../api/api";
 
 function Courses() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("All");
+  
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+  const fetchCourses = async () => {
+      try {
+        const res = await API.get("/courses");
+        setCourses(res.data);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const courses = [
-    {
-      id: "1",
-      title: "Web Development",
-      level: "Beginner",
-      price: "999",
-      image: web,
-    },
-    {
-      id: "2",
-      title: "Python for Data Science",
-      level: "Intermediate",
-      price: "1299",
-      image: python,
-    },
-    {
-      id: "3",
-      title: "Machine Learning A-Z",
-      level: "Advanced",
-      price: "1499",
-      image: ml,
-    },
-  ];
-
+    fetchCourses();
+  }, []);
   const filteredCourses = courses.filter((course) => {
     const matchesSearch = course.title
       .toLowerCase()
@@ -46,7 +35,19 @@ function Courses() {
 
     return matchesSearch && matchesLevel;
   });
-
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className="min-h-screen flex items-center justify-center">
+          <h2 className="text-2xl font-semibold">
+            Loading Courses...
+          </h2>
+        </div>
+        <Footer />
+      </>
+    );
+  }
   return (
     <>
       <Navbar />
@@ -91,14 +92,17 @@ function Courses() {
               </p>
             ) : (
               filteredCourses.map((course) => (
-                <CourseCard
-                  key={course.id}
-                  id={course.id}
-                  title={course.title}
-                  level={course.level}
-                  price={course.price}
-                  image={course.image}
-                />
+              <CourseCard
+                key={course._id}
+                id={course._id}
+                title={course.title}
+                level={course.level}
+                price={course.price}
+                image={`/images/${course.thumbnail}`}
+                instructor={course.instructor}
+                rating={course.rating}
+                enrolledStudents={course.enrolledStudents}
+              />
               ))
             )}
 

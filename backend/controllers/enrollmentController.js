@@ -1,9 +1,40 @@
 const Enrollment = require("../models/Enrollment");
-
+const Activity = require("../models/Activity");
+const Progress = require("../models/Progress");
+const Course = require("../models/Course");
 // Enroll Student
 const enrollCourse = async (req, res) => {
   try {
-    const enrollment = await Enrollment.create(req.body);
+    // Check if already enrolled
+    const existingEnrollment = await Enrollment.findOne({
+      student: req.user.id,
+      course: req.body.course,
+    });
+
+    if (existingEnrollment) {
+      return res.status(400).json({
+        message: "Student is already enrolled in this course",
+      });
+    }
+
+   const enrollment = await Enrollment.create({
+      student: req.user.id,
+      course: req.body.course,
+    });
+    const course = await Course.findById(req.body.course);
+
+    await Progress.create({
+      student: req.user.id,
+      course: req.body.course,
+      completedLessons: 0,
+      totalLessons: course.totalLessons || 20,
+    });
+    // Create activity
+    await Activity.create({
+      student: req.user.id,
+      course: req.body.course,
+      action: "Enrolled in Course",
+    });
 
     res.status(201).json(enrollment);
   } catch (error) {
@@ -13,10 +44,12 @@ const enrollCourse = async (req, res) => {
   }
 };
 
-// Get All Enrollments
+// Get Logged-in User Enrollments
 const getEnrollments = async (req, res) => {
   try {
-    const enrollments = await Enrollment.find()
+    const enrollments = await Enrollment.find({
+      student: req.user.id,
+    })
       .populate("student", "name email")
       .populate("course", "title");
 

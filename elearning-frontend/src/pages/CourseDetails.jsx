@@ -1,204 +1,223 @@
+import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { useParams } from "react-router-dom";
 import Footer from "../components/Footer";
-
-import web from "../assets/web.png";
-import python from "../assets/python.png";
-import ml from "../assets/ml.png";
+import API from "../api/api";
 
 function CourseDetails() {
-    const { id } = useParams();
+  const { id } = useParams();
 
-    const courses = {
-    1: {
-        title: "Web Development Bootcamp",
-        image: web,
-        instructor: "Rahul Mehta",
-        level: "Beginner",
-        price: "999",
-        duration: "12 Hours",
-        students: "1200+",
-        learn: [
-                "HTML5 Fundamentals",
-                "CSS3 & Responsive Design",
-                "JavaScript ES6+",
-                "React Development",
-                "API Integration",
-                "Deployment & Hosting",
-                ],
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [enrolling, setEnrolling] = useState(false);
+  const [isEnrolled, setIsEnrolled] = useState(false);
 
-        curriculum: [
-                "Module 1: HTML Basics",
-                "Module 2: CSS & Flexbox",
-                "Module 3: JavaScript Fundamentals",
-                "Module 4: React Basics",
-                "Module 5: Final Project",
-                ],
-    },
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        // Fetch Course
+        const res = await API.get(`/courses/${id}`);
+        setCourse(res.data);
 
-    2: {
-        title: "Python for Data Science",
-        image: python,
-        instructor: "Priya Sharma",
-        level: "Intermediate",
-        price: "1299",
-        duration: "15 Hours",
-        students: "950+",
-        learn: [
-                "Python Basics",
-                "NumPy",
-                "Pandas",
-                "Data Visualization",
-                "Data Cleaning",
-                "Mini Data Science Projects",
-                ],
+        // Check if enrolled
+        const enrollments = await API.get("/enrollments");
 
-        curriculum: [
-                    "Module 1: Python Fundamentals",
-                    "Module 2: NumPy",
-                    "Module 3: Pandas",
-                    "Module 4: Matplotlib",
-                    "Module 5: Data Science Project",
-                    ],
-    },
+        const enrolled = enrollments.data.some(
+          (enrollment) => enrollment.course._id === id
+        );
 
-    3: {
-        title: "Machine Learning A-Z",
-        image: ml,
-        instructor: "Aman Verma",
-        level: "Advanced",
-        price: "1499",
-        duration: "20 Hours",
-        students: "700+",
-        learn: [
-                "Machine Learning Basics",
-                "Regression Models",
-                "Classification Models",
-                "Model Evaluation",
-                "Feature Engineering",
-                "AI Applications",
-                ],
-
-        curriculum: [
-                    "Module 1: Introduction to ML",
-                    "Module 2: Regression",
-                    "Module 3: Classification",
-                    "Module 4: Model Optimization",
-                    "Module 5: Capstone Project",
-                    ],
-    },
+        setIsEnrolled(enrolled);
+      } catch (error) {
+        console.error("Error fetching course:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    const course = courses[id];
-    if (!course) {
+    fetchCourse();
+  }, [id]);
+
+  const handleEnroll = async () => {
+    try {
+      setEnrolling(true);
+
+      await API.post("/enrollments", {
+        course: course._id,
+      });
+
+      alert("🎉 Successfully enrolled in the course!");
+      setIsEnrolled(true);
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data.message ===
+          "Student is already enrolled in this course"
+      ) {
+        alert("✅ You are already enrolled in this course.");
+        setIsEnrolled(true);
+      } else if (error.response && error.response.status === 401) {
+        alert("⚠️ Please login first.");
+      } else {
+        console.error(error);
+        alert("❌ Enrollment failed.");
+      }
+    } finally {
+      setEnrolling(false);
+    }
+  };
+
+  if (loading) {
     return (
-                <div className="p-10 text-center text-3xl">
-                Course Not Found
-                </div>
-            );
-            }
+      <>
+        <Navbar />
+        <div className="min-h-screen flex items-center justify-center bg-[#F6F4E8]">
+          <h1 className="text-3xl font-bold">Loading Course...</h1>
+        </div>
+      </>
+    );
+  }
+
+  if (!course) {
     return (
-        <>
+      <>
+        <Navbar />
+        <div className="min-h-screen flex items-center justify-center bg-[#F6F4E8]">
+          <h1 className="text-4xl font-bold text-red-600">
+            Course Not Found
+          </h1>
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <>
       <Navbar />
 
-      <div className="bg-[#F6F4E8] min-h-screen">
+      <div className="bg-[#F6F4E8] min-h-screen py-12">
+        <div className="max-w-7xl mx-auto px-6">
 
-        <div className="max-w-7xl mx-auto px-8 py-12">
-
-          {/* Course Header */}
-
-          <div className="grid md:grid-cols-2 gap-10 items-center">
+          {/* Hero Section */}
+          <div className="grid md:grid-cols-2 gap-12 items-center">
 
             <img
-              src={course.image}
-              alt="Course"
-              className="rounded-3xl shadow-lg w-full"
+              src={`/images/${course.thumbnail}`}
+              alt={course.title}
+              className="rounded-3xl shadow-xl w-full h-[420px] object-cover"
             />
 
             <div>
 
               <span className="bg-[#DDF3EE] text-[#0F5C5C] px-4 py-2 rounded-full font-semibold">
-                Beginner
+                {course.level}
               </span>
 
               <h1 className="text-5xl font-bold mt-6">
                 {course.title}
               </h1>
 
-              <p className="text-gray-600 mt-4 text-lg">
+              <p className="text-gray-600 mt-5 text-lg leading-8">
                 {course.description}
               </p>
 
-              <div className="mt-6 space-y-2">
+              <div className="grid grid-cols-2 gap-4 mt-8">
 
-                <p>⭐ 4.8 Rating</p>
+                <div className="bg-white p-4 rounded-xl shadow">
+                  ⭐ <strong>{course.rating}</strong>
+                  <p className="text-gray-500 text-sm mt-1">Course Rating</p>
+                </div>
 
-                <p>👨‍🏫 Instructor: {course.instructor}</p>
+                <div className="bg-white p-4 rounded-xl shadow">
+                  👥 <strong>{course.enrolledStudents}</strong>
+                  <p className="text-gray-500 text-sm mt-1">Students</p>
+                </div>
 
-                <p>🎓 {course.students} Students Enrolled</p>
+                <div className="bg-white p-4 rounded-xl shadow">
+                  👨‍🏫 <strong>{course.instructor}</strong>
+                  <p className="text-gray-500 text-sm mt-1">Instructor</p>
+                </div>
 
-                <p>⏱ Duration: {course.duration}</p>
+                <div className="bg-white p-4 rounded-xl shadow">
+                  📂 <strong>{course.category}</strong>
+                  <p className="text-gray-500 text-sm mt-1">Category</p>
+                </div>
 
               </div>
 
-              <h2 className="text-4xl font-bold text-[#0F5C5C] mt-8">
+              <h2 className="text-5xl font-bold text-[#0F5C5C] mt-8">
                 ₹{course.price}
               </h2>
 
-              <button className="mt-6 bg-[#0F5C5C] text-white px-8 py-4 rounded-xl hover:bg-[#0c4a4a] transition">
-                Enroll Now
-              </button>
+              <div className="mt-8 flex gap-4">
+
+                {!isEnrolled ? (
+                  <button
+                    onClick={handleEnroll}
+                    disabled={enrolling}
+                    className="bg-[#0F5C5C] hover:bg-[#0c4a4a] disabled:bg-gray-400 text-white px-8 py-4 rounded-xl text-lg font-semibold transition"
+                  >
+                    {enrolling ? "Enrolling..." : "Enroll Now"}
+                  </button>
+                ) : (
+                  <Link
+                    to={`/quiz/${course._id}`}
+                    className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition"
+                  >
+                    📝 Take Quiz
+                  </Link>
+                )}
+
+              </div>
 
             </div>
 
           </div>
 
-          {/* What You'll Learn */}
+          {/* Skills Section */}
+          <div className="mt-20 bg-white rounded-3xl shadow-lg p-10">
 
-          <div className="mt-20 bg-white p-10 rounded-3xl shadow-lg">
-
-            <h2 className="text-4xl font-bold mb-6">
-              What You'll Learn
+            <h2 className="text-4xl font-bold mb-8">
+              Skills You'll Gain
             </h2>
-                <ul className="space-y-4 text-lg">
 
-                {course.learn.map((item, index) => (
-                    <li key={index}>
-                    ✅ {item}
-                    </li>
-                ))}
+            <div className="flex flex-wrap gap-4">
 
-                </ul>                
+              {course.tags && course.tags.length > 0 ? (
+                course.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="bg-[#DDF3EE] text-[#0F5C5C] px-5 py-3 rounded-full font-semibold"
+                  >
+                    {tag}
+                  </span>
+                ))
+              ) : (
+                <p className="text-gray-500">
+                  No tags available.
+                </p>
+              )}
+
+            </div>
 
           </div>
 
-          {/* Curriculum */}
-
-          <div className="mt-16 bg-white p-10 rounded-3xl shadow-lg">
+          {/* About Course */}
+          <div className="mt-12 bg-white rounded-3xl shadow-lg p-10">
 
             <h2 className="text-4xl font-bold mb-6">
-              Course Curriculum
+              About This Course
             </h2>
-                <div className="space-y-4">
 
-                {course.curriculum.map((module, index) => (
-                    <div
-                    key={index}
-                    className="border-b pb-4"
-                    >
-                    {module}
-                    </div>
-                ))}
+            <p className="text-gray-700 text-lg leading-9">
+              {course.description}
+            </p>
 
-                </div>
-           
           </div>
 
         </div>
-
-        <Footer />
-
       </div>
+
+      <Footer />
     </>
   );
 }

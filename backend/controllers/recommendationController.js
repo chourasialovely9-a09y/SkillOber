@@ -2,7 +2,8 @@ const { getRecommendations } = require("../services/recommendationService");
 
 const getRecommendedCourses = async (req, res) => {
   try {
-    const userId = req.params.userId;
+    // Get logged-in user's ID from JWT
+    const userId = req.user.id;
 
     const recommendations = await getRecommendations(userId);
 

@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-
+const activityRoutes = require("./routes/activityRoutes");
 const connectDB = require("./config/db");
 
 dotenv.config();
@@ -38,6 +38,7 @@ app.use("/api/quizzes", quizRoutes);
 app.use("/api/assignments", assignmentRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/classrooms", virtualClassroomRoutes);
+app.use("/api/activities", activityRoutes);
 const PORT = process.env.PORT || 5000;
 
 const http = require("http");

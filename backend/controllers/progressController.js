@@ -1,10 +1,13 @@
 const Progress = require("../models/Progress");
 const Activity = require("../models/Activity");
-
+const Enrollment = require("../models/Enrollment");
 // Create Progress
 const createProgress = async (req, res) => {
   try {
-    const progress = await Progress.create(req.body);
+    const progress = await Progress.create({
+      ...req.body,
+      student: req.user.id,
+    });
 
     await Activity.create({
       student: progress.student,
@@ -20,12 +23,14 @@ const createProgress = async (req, res) => {
   }
 };
 
-// Get All Progress Records
+// Get Logged-in User Progress
 const getProgress = async (req, res) => {
   try {
-    const progress = await Progress.find()
+    const progress = await Progress.find({
+      student: req.user.id,
+    })
       .populate("student", "name email")
-      .populate("course", "title");
+      .populate("course", "title thumbnail instructor level price rating enrolledStudents");
 
     res.status(200).json(progress);
   } catch (error) {
@@ -38,7 +43,10 @@ const getProgress = async (req, res) => {
 // Update Progress
 const updateProgress = async (req, res) => {
   try {
-    const progress = await Progress.findById(req.params.id);
+    const progress = await Progress.findOne({
+      _id: req.params.id,
+      student: req.user.id,
+    });
 
     if (!progress) {
       return res.status(404).json({
@@ -53,7 +61,7 @@ const updateProgress = async (req, res) => {
       (progress.completedLessons / progress.totalLessons) * 100
     );
 
-    // Milestones
+    // Milestone 1
     if (
       progress.completedLessons >= 1 &&
       !progress.milestones.find(
@@ -66,7 +74,20 @@ const updateProgress = async (req, res) => {
         achievedAt: new Date(),
       });
     }
-
+    // Milestone 2
+    if (
+      progress.percentageCompleted >= 25 &&
+      !progress.milestones.find(
+        (m) => m.title === "25% Course Completion"
+      )
+    ) {
+      progress.milestones.push({
+        title: "25% Course Completion",
+        achieved: true,
+        achievedAt: new Date(),
+      });
+    }
+    // Milestone 3
     if (
       progress.percentageCompleted >= 50 &&
       !progress.milestones.find(
@@ -80,6 +101,7 @@ const updateProgress = async (req, res) => {
       });
     }
 
+    // Course Completed
     if (
       progress.percentageCompleted === 100 &&
       !progress.certificateIssued
@@ -115,24 +137,30 @@ const updateProgress = async (req, res) => {
   }
 };
 
-// Analytics Dashboard Data
+// Analytics Dashboard
 const getAnalytics = async (req, res) => {
   try {
-    const progress = await Progress.find();
+    const studentId = req.user.id;
 
-    const totalCourses = progress.length;
+    const totalCourses = await Enrollment.countDocuments({
+      student: studentId,
+    });
+
+    const progress = await Progress.find({
+       student: req.user.id,
+      }).populate("course");
 
     const completedCourses = progress.filter(
       (p) => p.percentageCompleted === 100
     ).length;
 
     const averageProgress =
-      totalCourses > 0
+      progress.length > 0
         ? Math.round(
             progress.reduce(
               (sum, p) => sum + p.percentageCompleted,
               0
-            ) / totalCourses
+            ) / progress.length
           )
         : 0;
 
@@ -152,7 +180,6 @@ const getAnalytics = async (req, res) => {
     });
   }
 };
-
 module.exports = {
   createProgress,
   getProgress,

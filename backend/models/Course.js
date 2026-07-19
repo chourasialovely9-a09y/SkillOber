@@ -44,7 +44,15 @@ const courseSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    duration: {
+        type: String,
+        default: "10 Hours",
+      },
 
+      language: {
+        type: String,
+        default: "English",
+      },
     // Average course rating
     rating: {
       type: Number,

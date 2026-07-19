@@ -1,11 +1,79 @@
 import Navbar from "../components/Navbar";
-import web from "../assets/web.png";
-import python from "../assets/python.png";
-import ml from "../assets/ml.png";
+import { useEffect, useState } from "react";
+import API from "../api/api";
 import CourseCard from "../components/CourseCard";
 import { Link } from "react-router-dom";
 
 function StudentDashboard() {
+  const [courses, setCourses] = useState([]);
+  const [progress, setProgress] = useState([]);
+  const [activities, setActivities] = useState([]);
+  const [classrooms, setClassrooms] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
+  const [analytics, setAnalytics] = useState({
+    totalCourses: 0,
+    completedCourses: 0,
+    averageProgress: 0,
+    certificatesEarned: 0,
+    });
+  useEffect(() => {
+    fetchCourses();
+    fetchAnalytics();
+    fetchProgress();
+    fetchRecommendations();
+    fetchActivities();
+    fetchClassrooms();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      const res = await API.get("/courses");
+      setCourses(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const fetchAnalytics = async () => {
+    try {
+      const res = await API.get("/progress/analytics");
+      setAnalytics(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const fetchProgress = async () => {
+  try {
+    const res = await API.get("/progress");
+    setProgress(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchRecommendations = async () => {
+  try {
+    const res = await API.get("/recommendations");
+    setRecommendations(res.data.recommendations);
+  } catch (error) {
+    console.log(error);
+  }
+};
+  const fetchActivities = async () => {
+  try {
+    const res = await API.get("/activities");
+    setActivities(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+  const fetchClassrooms = async () => {
+  try {
+    const res = await API.get("/classrooms");
+    setClassrooms(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
   return (
     <>
       <Navbar />
@@ -51,32 +119,22 @@ function StudentDashboard() {
             <h2 className="text-5xl font-bold mb-8 text-[#1A2B3C]">
                 AI Recommended Courses
             </h2>
-
             <div className="grid md:grid-cols-3 gap-8">
-
+              {recommendations.slice(0, 3).map((course) => (
                 <CourseCard
-                title="React Development"
-                level="Beginner"
-                price="999"
-                image={web}
+                  key={course._id}
+                  id={course._id}
+                  title={course.title}
+                  level={course.level}
+                  price={course.price}
+                  image={`/images/${course.thumbnail}`}
+                  instructor={course.instructor}
+                  rating={course.rating}
+                  enrolledStudents={course.enrolledStudents}
                 />
-
-                <CourseCard
-                title="Python for Data Science"
-                level="Intermediate"
-                price="1299"
-                image={python}
-                />
-
-                <CourseCard
-                title="Machine Learning A-Z"
-                level="Advanced"
-                price="1499"
-                image={ml}
-                />
-
+              ))}
             </div>
-
+            
         </div>
         {/* Stats Cards */}
 
@@ -88,7 +146,7 @@ function StudentDashboard() {
             </h2>
 
             <p className="text-4xl font-bold text-[#0F5C5C]">
-              5
+              {analytics.totalCourses}
             </p>
           </div>
 
@@ -98,7 +156,7 @@ function StudentDashboard() {
             </h2>
 
             <p className="text-4xl font-bold text-[#1C7C7D]">
-              2
+              {analytics.completedCourses}
             </p>
           </div>
 
@@ -108,7 +166,7 @@ function StudentDashboard() {
             </h2>
 
             <p className="text-4xl font-bold text-[#0F5C5C]">
-              75%
+              {analytics.averageProgress}%
             </p>
           </div>
 
@@ -118,7 +176,9 @@ function StudentDashboard() {
             </h2>
 
             <p className="font-semibold">
-              React Masterclass
+              {recommendations.length > 0
+                ? recommendations[0].title
+                : "No Recommendation"}
             </p>
           </div>
 
@@ -136,79 +196,96 @@ function StudentDashboard() {
 
             <div
               className="bg-[#0F5C5C] h-5 rounded-full"
-              style={{ width: "75%" }}
+              style={{
+                  width: `${analytics.averageProgress}%`,
+              }}
             ></div>
 
           </div>
 
           <p className="mt-3 text-lg">
-            75% Course Completion
+            {analytics.averageProgress}% Course Completion
           </p>
 
         </div>
 
         {/* Continue Learning */}
 
-          <div className="mt-16">
+        <div className="mt-16">
+          <h2 className="text-3xl font-bold mb-6">
+            Continue Learning
+          </h2>
 
-            <h2 className="text-3xl font-bold mb-6">
-              Continue Learning
-            </h2>
-
+          {progress.length > 0 ? (
             <div className="bg-white rounded-2xl shadow-lg p-6">
-
               <div className="flex justify-between items-center">
-
                 <div>
-
                   <h3 className="text-2xl font-bold">
-                    React Development
+                    {progress[0].course.title}
                   </h3>
 
                   <p className="text-gray-500">
-                    75% Completed
+                    {progress[0].percentageCompleted}% Completed
                   </p>
 
+                  <p className="text-sm text-gray-500 mt-1">
+                    {progress[0].completedLessons} / {progress[0].totalLessons} Lessons Completed
+                  </p>
                 </div>
 
-                <button className="bg-[#0F5C5C] text-white px-6 py-3 rounded-xl hover:bg-[#0c4a4a]">
+                <Link
+                  to={`/course/${progress[0].course._id}`}
+                  className="bg-[#0F5C5C] text-white px-6 py-3 rounded-xl hover:bg-[#0c4a4a]"
+                >
                   Continue
-                </button>
-
+                </Link>
               </div>
-
             </div>
+          ) : (
+            <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
+              <p className="text-gray-500">
+                You haven't started any course yet.
+              </p>
 
-          </div>
+              <Link
+                to="/courses"
+                className="inline-block mt-4 bg-[#0F5C5C] text-white px-6 py-3 rounded-xl hover:bg-[#0c4a4a]"
+              >
+                Browse Courses
+              </Link>
+            </div>
+          )}
+        </div>
 
-        {/* Recent Activity */}
+          {/* Recent Activity */}
 
         <div className="mt-16">
-
           <h2 className="text-3xl font-bold mb-6">
             Recent Activity
           </h2>
 
           <div className="bg-white rounded-2xl shadow-lg p-6">
-
-            <div className="border-b py-3">
-              ✅ Completed React Basics
-            </div>
-
-            <div className="border-b py-3">
-              🎥 Watched Node.js Introduction
-            </div>
-
-            <div className="border-b py-3">
-              📚 Started MongoDB Essentials
-            </div>
-
-            <div className="py-3">
-              🏆 Earned Beginner Certificate
-            </div>
-
+            {activities.length > 0 ? (
+              activities.map((activity) => (
+                <div
+                  key={activity._id}
+                  className="border-b py-3 last:border-b-0"
+                >
+                  ✅ {activity.action}
+                  {activity.course && (
+                    <span className="text-gray-500">
+                      {" "}
+                      - {activity.course.title}
+                    </span>
+                  )}
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500">
+                No recent activity found.
+              </p>
+            )}
           </div>
-
         </div>
         {/* Upcoming Classes */}
 
@@ -220,21 +297,49 @@ function StudentDashboard() {
 
           <div className="bg-white rounded-2xl shadow-lg p-6">
 
-            <div className="border-b py-3">
-              📅 React Advanced Concepts - Tomorrow 6:00 PM
-            </div>
+            {classrooms.length > 0 ? (
+              classrooms.map((classroom) => (
+                <div
+                  key={classroom._id}
+                  className="border-b py-4 last:border-b-0"
+                >
+                  <h3 className="font-semibold text-lg">
+                    📚 {classroom.course.title}
+                  </h3>
 
-            <div className="border-b py-3">
-              📅 Python Data Analysis - Friday 7:00 PM
-            </div>
+                  <p className="text-gray-600">
+                    👨‍🏫 {classroom.instructor}
+                  </p>
 
-            <div className="py-3">
-              📅 Machine Learning Basics - Sunday 5:00 PM
-            </div>
+                  <p className="text-gray-600">
+                    🕒{" "}
+                    {new Date(classroom.classDate).toLocaleString()}
+                  </p>
+
+                  <p className="text-gray-600">
+                    ⏳ {classroom.duration}
+                  </p>
+
+                  <a
+                    href={classroom.meetingLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[#0F5C5C] font-semibold hover:underline"
+                  >
+                    Join Class
+                  </a>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500">
+                No upcoming classes.
+              </p>
+            )}
 
           </div>
 
         </div>
+       
         {/* AI Recommendations */}
 
         <div className="mt-16 bg-[#0F5C5C] text-white p-8 rounded-3xl">
@@ -244,64 +349,108 @@ function StudentDashboard() {
           </h2>
 
           <ul className="space-y-3 text-lg">
-
-            <li>🚀 Advanced React Development</li>
-
-            <li>🤖 Introduction to Machine Learning</li>
-
-            <li>📊 Python for Data Analytics</li>
-
+            {recommendations.length > 0 ? (
+              recommendations.slice(0, 3).map((course) => (
+                <li key={course._id}>
+                  🚀 {course.title}
+                </li>
+              ))
+            ) : (
+              <li>No recommendations available.</li>
+            )}
           </ul>
 
         </div>
         {/* Achievements */}
 
         <div className="mt-16">
-
           <h2 className="text-3xl font-bold mb-6">
             Achievements
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
 
-            <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
+            {progress.length > 0 ? (
 
-              <h3 className="text-5xl">
-                🏆
-              </h3>
+              progress.flatMap((item) => {
 
-              <p className="mt-4 font-bold">
-                First Course Completed
-              </p>
+                const cards = [];
 
-            </div>
+                item.milestones.forEach((milestone) => {
 
-            <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
+                  let icon = "🎯";
 
-              <h3 className="text-5xl">
-                ⭐
-              </h3>
+                  if (milestone.title === "First Lesson Completed")
+                    icon = "📖";
 
-              <p className="mt-4 font-bold">
-                Top Learner
-              </p>
+                  if (milestone.title === "25% Course Completion")
+                    icon = "🥉";
 
-            </div>
+                  if (milestone.title === "50% Course Completion")
+                    icon = "🥈";
 
-            <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
+                  if (milestone.title === "Course Completed")
+                    icon = "🎓";
 
-              <h3 className="text-5xl">
-                🎯
-              </h3>
+                  cards.push(
 
-              <p className="mt-4 font-bold">
-                7-Day Learning Streak
-              </p>
+                    <div
+                      key={`${item._id}-${milestone.title}`}
+                      className="bg-white p-6 rounded-2xl shadow-lg text-center"
+                    >
+                      <h3 className="text-5xl">
+                        {icon}
+                      </h3>
 
-            </div>
+                      <p className="mt-4 font-bold">
+                        {milestone.title}
+                      </p>
+
+                      <p className="text-sm text-gray-500 mt-2">
+                        {item.course.title}
+                      </p>
+                    </div>
+
+                  );
+                });
+
+                if (item.certificateIssued) {
+
+                  cards.push(
+
+                    <div
+                      key={`${item._id}-certificate`}
+                      className="bg-white p-6 rounded-2xl shadow-lg text-center"
+                    >
+                      <h3 className="text-5xl">
+                        🏆
+                      </h3>
+
+                      <p className="mt-4 font-bold">
+                        Certificate Earned
+                      </p>
+
+                      <p className="text-sm text-gray-500 mt-2">
+                        {item.course.title}
+                      </p>
+                    </div>
+
+                  );
+                }
+
+                return cards;
+
+              })
+
+            ) : (
+
+              <div className="col-span-3 bg-white rounded-2xl shadow-lg p-6 text-center text-gray-500">
+                No achievements yet. Keep learning!
+              </div>
+
+            )}
 
           </div>
-
         </div>
 
         {/* Recommended Courses */}
@@ -311,34 +460,22 @@ function StudentDashboard() {
           <h2 className="text-4xl font-bold mb-8">
             Recommended Courses
           </h2>
-
-          <div className="grid md:grid-cols-3 gap-6">
-
-            <CourseCard
-              id ="1"
-              title="Advanced React"
-               image={web}
-              level="Intermediate"
-              price="1499"
-            />
-
-            <CourseCard
-            id="2"
-              title="Machine Learning"
-               image={ml}
-              level="Advanced"
-              price="1999"
-            />
-
-            <CourseCard
-            id="3"
-              title="Python Analytics"
-               image={python}
-              level="Intermediate"
-              price="1299"
-            />
-
-          </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {courses.slice(3, 6).map((course) => (
+                <CourseCard
+                  key={course._id}
+                  id={course._id}
+                  title={course.title}
+                  level={course.level}
+                  price={course.price}
+                  image={`/images/${course.thumbnail}`}
+                  instructor={course.instructor}
+                  rating={course.rating}
+                  enrolledStudents={course.enrolledStudents}
+                />
+              ))}
+            </div>
+          
 
         </div>
 
